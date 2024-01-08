@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Event Bubbling Example</title>
+  </head>
+  <body>
+    <div id="outer">
+      Outer Div
+      <div id="inner">
+        Inner Div
+        <button id="button">Click me!</button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const outerDiv = document.getElementById("outer");
+        const innerDiv = document.getElementById("inner");
+        const button = document.getElementById("button");
+
+        outerDiv.addEventListener("click", function (event) {
+          console.log("Clicked on outer div");
+        });
+
+        innerDiv.addEventListener("click", function (event) {
+          console.log("Clicked on inner div");
+          event.stopPropagation();
+        });
+
+        button.addEventListener("mouseover", function (event) {
+          console.log("Clicked on button");
+        });
+      });
+    </script>
+  </body>
+</html>

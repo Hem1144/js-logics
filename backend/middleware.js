@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const router = express.Router();
 
 require("dotenv").config();
 
@@ -14,6 +15,21 @@ const loggerMiddleware = (req, res, next) => {
   console.log(`${new Date()} ---Request [${req.method}] [${req.url}]`);
 };
 app.use(loggerMiddleware);
+
+//! router-level middleware
+const getUsers = (req, res) => {
+  res.json({ message: "Successfully get all Users" });
+};
+
+const createUser = (req, res) => {
+  res.json({ message: "Successfully create new User" });
+};
+
+// Mount the router middleware on "/api/users"
+app.use("/api/users", router);
+
+// Define routes on the router
+router.route("/").get(getUsers).post(createUser);
 
 //! custom middleware
 // app.use((req, res, next) => {
